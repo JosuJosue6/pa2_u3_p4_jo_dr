@@ -22,14 +22,27 @@ public class Pa2U3P4JoDrApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("\nJOIN");
 		System.out.println("\nInner Join");
 		this.hotelService.listarInnerJoin().forEach(System.out::println);
+		//System.out.println(this.hotelService.listarInnerJoin());
 		
+		System.out.println("\nOUTER JOIN");
 		System.out.println("\nLeft Join");
 		this.hotelService.listarLeftJoin().forEach(System.out::println);
 		
 		System.out.println("\nRight Join");
 		this.hotelService.listarRightJoin().forEach(System.out::println);
+		
+		System.out.println("\nHabitacion Left Join");
+		this.hotelService.listarHabitacionOuterLefttJoin().forEach(System.out::println);
+		
+		System.out.println("\nBuscar Full outer Join");
+		this.hotelService.listarOuterFullJoin().forEach(System.out::println);
+		
+		System.out.println("\nBuscar Where Join");
+		this.hotelService.listarWhereJoin().forEach(System.out::println);
+		
 	}
 
 }
