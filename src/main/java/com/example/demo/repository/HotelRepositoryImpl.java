@@ -15,65 +15,84 @@ import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public class HotelRepositoryImpl implements IHotelRepository{
+public class HotelRepositoryImpl implements IHotelRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@Override
 	public List<Hotel> seleccionarInnerJoin() {
 		// TODO Auto-generated method stub
-		//SELECT * FROM hotel h FULL OUTER JOIN habitacion ha on h.htl_id = ha.habi_id_hotel
-		//SELECT h FROM Hotel h JOIN h.habitaciones ha 
-		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h  INNER JOIN h.habitaciones ha", Hotel.class);
-		return myQuery.getResultList();
+		// SELECT * FROM hotel h FULL OUTER JOIN habitacion ha on h.htl_id =
+		// ha.habi_id_hotel
+		// SELECT h FROM Hotel h JOIN h.habitaciones ha
+		TypedQuery<Hotel> myQuery = this.entityManager
+				.createQuery("SELECT h FROM Hotel h  INNER JOIN h.habitaciones ha", Hotel.class);
+		List<Hotel> listaHoteles = myQuery.getResultList();
+		for (Hotel h : listaHoteles) {
+			h.getHabitaciones().size();// retorna la lista de hoteles
+		}
+		return listaHoteles;
 	}
 
-	
 	@Override
 	public List<Hotel> seleccionarOuterLeftJoin() {
 		// TODO Auto-generated method stub
-		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h LEFT JOIN h.habitaciones ha", Hotel.class);
+		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h LEFT JOIN h.habitaciones ha",
+				Hotel.class);
 		return myQuery.getResultList();
 	}
 
 	@Override
 	public List<Hotel> seleccionarOuterRightJoin() {
 		// TODO Auto-generated method stub
-		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h RIGHT JOIN h.habitaciones ha", Hotel.class);
+		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h RIGHT JOIN h.habitaciones ha",
+				Hotel.class);
 		return myQuery.getResultList();
 	}
-
 
 	@Override
 	public List<Habitacion> seleccionarHabitacionOuterLefttJoin() {
 		// TODO Auto-generated method stub
-		TypedQuery<Habitacion> myQuery = this.entityManager.createQuery("SELECT ha FROM Hotel h LEFT JOIN h.habitaciones ha", Habitacion.class);
+		TypedQuery<Habitacion> myQuery = this.entityManager
+				.createQuery("SELECT ha FROM Hotel h LEFT JOIN h.habitaciones ha", Habitacion.class);
 		return myQuery.getResultList();
 	}
-
 
 	@Override
 	public List<Hotel> seleccionarOuterFullJoin() {
 		// TODO Auto-generated method stub
-		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h FULL JOIN h.habitaciones ha", Hotel.class);
+		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h FULL JOIN h.habitaciones ha",
+				Hotel.class);
 		return myQuery.getResultList();
 	}
-
 
 	@Override
 	public List<Hotel> seleccionarWhereJoin() {
 		// TODO Auto-generated method stub
-		//Diferencia
-		//SELECT h.* FROM hotel h, habitacion ha WHERE h.htl_id = ha.habi_id_hotel
-		//SELECT h FROM Hotel h, Habitacion ha WHERE h = ha.hotel //Se comparan los obvjetos de Hotel y los objetod Hotel en la clase Habitacion
-		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h, Habitacion ha WHERE h = ha.hotel",Hotel.class);
-		
+		// Diferencia
+		// SELECT h.* FROM hotel h, habitacion ha WHERE h.htl_id = ha.habi_id_hotel
+		// SELECT h FROM Hotel h, Habitacion ha WHERE h = ha.hotel //Se comparan los
+		// obvjetos de Hotel y los objetod Hotel en la clase Habitacion
+		TypedQuery<Hotel> myQuery = this.entityManager
+				.createQuery("SELECT h FROM Hotel h, Habitacion ha WHERE h = ha.hotel", Hotel.class);
+
 		return myQuery.getResultList();
 	}
 
+	@Override
+	public List<Hotel> seleccionarFetchJoin() {
+		// TODO Auto-generated method stub
+		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h JOIN FETCH h.habitaciones ha",
+				Hotel.class);
 
-	
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public void insertar(Hotel hotel) {
+		// TODO Auto-generated method stub
+		this.entityManager.persist(hotel);
+	}
+
 }
-
-

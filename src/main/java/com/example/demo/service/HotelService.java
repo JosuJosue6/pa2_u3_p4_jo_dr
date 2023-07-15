@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.demo.repository.modelo.Habitacion;
@@ -18,4 +19,9 @@ public interface HotelService {
 	public List<Hotel> listarOuterFullJoin();
 	
 	public List<Hotel> listarWhereJoin();
+	
+	public List<Hotel> listarJoinFetch();
+	
+	public void agregar(Hotel hotel);
+
 }
