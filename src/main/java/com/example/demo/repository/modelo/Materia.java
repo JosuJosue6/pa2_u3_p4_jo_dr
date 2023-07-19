@@ -1,4 +1,4 @@
-package com.example.demo.universidad.repository.modelo;
+package com.example.demo.repository.modelo;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
@@ -16,29 +17,29 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "materia")
 public class Materia {
-
+	
 	@Id
-	@GeneratedValue(generator = "seq_materia", strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(generator = "seq_materia",strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "seq_materia", sequenceName = "seq_materia", allocationSize = 1)
-	@Column(name = "mat_id")
+	@Column(name = "mate_id")
 	private Integer id;
-
-	@Column(name = "mat_nombre")
+	
+	@Column(name = "mate_nombre")
 	private String nombre;
-
-	@Column(name = "mat_docente")
-	private String docente;
-
-	@Column(name = "mat_codigo")
+	
+	@Column(name = "mate_horas_academicas")
+	private String horasAcademicas;
+	
+	@Column(name = "mate_codigo")
 	private String codigo;
-
+	
 	@OneToMany(mappedBy = "materia")
 	private List<Matricula> matriculas;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "mate_id_semestre")
 	private Semestre semestre;
 
-	//SET Y GET
 	public Integer getId() {
 		return id;
 	}
@@ -55,12 +56,12 @@ public class Materia {
 		this.nombre = nombre;
 	}
 
-	public String getDocente() {
-		return docente;
+	public String getHorasAcademicas() {
+		return horasAcademicas;
 	}
 
-	public void setDocente(String docente) {
-		this.docente = docente;
+	public void setHorasAcademicas(String horasAcademicas) {
+		this.horasAcademicas = horasAcademicas;
 	}
 
 	public String getCodigo() {
@@ -89,8 +90,8 @@ public class Materia {
 
 	@Override
 	public String toString() {
-		return "Materia [id=" + id + ", nombre=" + nombre + ", docente=" + docente + ", codigo=" + codigo
-				+ "]";
+		return "Materia [id=" + id + ", nombre=" + nombre + ", horasAcademicas=" + horasAcademicas + ", codigo="
+				+ codigo + ", semestre=" + semestre + "]";
 	}
 	
 	

@@ -1,4 +1,4 @@
-package com.example.demo.universidad.repository.modelo;
+package com.example.demo.repository.modelo;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "estudiante")
 public class Estudiante {
-	
+
 	@Id
-	@GeneratedValue(generator = "seq_estudiante", strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(generator = "seq_estudiante",strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "seq_estudiante", sequenceName = "seq_estudiante", allocationSize = 1)
 	@Column(name = "estu_id")
 	private Integer id;
@@ -33,12 +33,12 @@ public class Estudiante {
 	@Column(name = "estu_cedula")
 	private String cedula;
 	
-	@ManyToOne(cascade = CascadeType.ALL) //SON LOS HIJOS
-	@JoinColumn(name ="estu_id_privincia")
-	private Provincia provincia;
-		
 	@OneToMany(mappedBy = "estudiante")
-	private List<Matricula> matriculas;
+	List<Matricula> matriculas;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "estu_id_provincia")
+	private Provincia provincia;
 
 	//SET Y GET
 	public Integer getId() {
@@ -73,14 +73,6 @@ public class Estudiante {
 		this.cedula = cedula;
 	}
 
-	public Provincia getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(Provincia provincia) {
-		this.provincia = provincia;
-	}
-
 	public List<Matricula> getMatriculas() {
 		return matriculas;
 	}
@@ -89,12 +81,20 @@ public class Estudiante {
 		this.matriculas = matriculas;
 	}
 
+	public Provincia getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
+	}
+
 	@Override
 	public String toString() {
 		return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula
 				+ ", provincia=" + provincia + "]";
 	}
 	
-
-
+	
+	
 }

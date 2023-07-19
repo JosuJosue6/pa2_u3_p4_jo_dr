@@ -1,4 +1,4 @@
-package com.example.demo.universidad.repository.modelo;
+package com.example.demo.repository.modelo;
 
 import java.util.List;
 
@@ -16,24 +16,23 @@ import jakarta.persistence.Table;
 public class Provincia {
 	
 	@Id
-	@GeneratedValue(generator = "seq_provincia", strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(generator = "seq_provincia",strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "seq_provincia", sequenceName = "seq_provincia", allocationSize = 1)
 	@Column(name = "prov_id")
 	private Integer id;
-
+	
 	@Column(name = "prov_nombre")
 	private String nombre;
-
-	@Column(name = "prov_capital")
-	private String capital;
-
+	
 	@Column(name = "prov_region")
 	private String region;
+	
+	@Column(name = "prov_capital")
+	private String capital;
 	
 	@OneToMany(mappedBy = "provincia")
 	private List<Estudiante> estudiantes;
 
-	//SET Y GET
 	public Integer getId() {
 		return id;
 	}
@@ -50,20 +49,20 @@ public class Provincia {
 		this.nombre = nombre;
 	}
 
-	public String getCapital() {
-		return capital;
-	}
-
-	public void setCapital(String capital) {
-		this.capital = capital;
-	}
-
 	public String getRegion() {
 		return region;
 	}
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+	public String getCapital() {
+		return capital;
+	}
+
+	public void setCapital(String capital) {
+		this.capital = capital;
 	}
 
 	public List<Estudiante> getEstudiantes() {
@@ -76,10 +75,10 @@ public class Provincia {
 
 	@Override
 	public String toString() {
-		return "Provincia [id=" + id + ", nombre=" + nombre + ", capital=" + capital + ", region=" + region + "]";
+		return "Provincia [id=" + id + ", nombre=" + nombre + ", region=" + region + ", capital=" + capital
+				+"]";
 	}
 	
 	
 	
-
 }
