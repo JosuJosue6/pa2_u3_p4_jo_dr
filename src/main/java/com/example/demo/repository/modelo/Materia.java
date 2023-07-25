@@ -1,6 +1,15 @@
 package com.example.demo.repository.modelo;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import org.aspectj.weaver.CompressingDataOutputStream;
+import org.aspectj.weaver.UnresolvedType;
+import org.aspectj.weaver.World;
+import org.aspectj.weaver.patterns.Declare;
+import org.aspectj.weaver.patterns.IScope;
+import org.aspectj.weaver.patterns.PatternNodeVisitor;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,6 +32,7 @@ public class Materia {
 	@SequenceGenerator(name = "seq_materia", sequenceName = "seq_materia", allocationSize = 1)
 	@Column(name = "mate_id")
 	private Integer id;
+	
 	
 	@Column(name = "mate_nombre")
 	private String nombre;
@@ -93,6 +103,47 @@ public class Materia {
 		return "Materia [id=" + id + ", nombre=" + nombre + ", horasAcademicas=" + horasAcademicas + ", codigo="
 				+ codigo + ", semestre=" + semestre + "]";
 	}
+	
+	Declare c = new Declare() {
+		
+		
+		
+		@Override
+		public void write(CompressingDataOutputStream s) throws IOException {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public Object accept(PatternNodeVisitor visitor, Object data) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public void resolve(IScope scope) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public Declare parameterizeWith(Map<String, UnresolvedType> typeVariableBindingMap, World w) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public boolean isAdviceLike() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public String getNameSuffix() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	};
 	
 	
 }

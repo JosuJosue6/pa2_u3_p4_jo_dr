@@ -13,13 +13,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-//@Entity
-//@Table(name = "transferencia")
+@Entity
+@Table(name = "transferencia")
 public class Transferencia {
-/*
+
 	@Id
 	@GeneratedValue(generator = "seq_transferencia", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "seq_transferencia", sequenceName = "seq_transferencia", allocationSize = 1)
+	@SequenceGenerator(name = "seq_transferencia", sequenceName = "seq_transferencia",allocationSize = 1)
 	@Column(name = "tran_id")
 	private Integer id;
 	
@@ -31,11 +31,11 @@ public class Transferencia {
 	
 	@ManyToOne
 	@JoinColumn(name = "tran_id_cta_origen")
-	private CuentaBancaria cuentaBancariaOrigen;
+	private CuentaBancaria cuentaOrigen;
 	
 	@ManyToOne
 	@JoinColumn(name = "tran_id_cta_destino")
-	private CuentaBancaria cuentaBancariaDestino;
+	private CuentaBancaria cuentaDestino;
 
 	//SET Y GET
 	public Integer getId() {
@@ -62,27 +62,27 @@ public class Transferencia {
 		this.monto = monto;
 	}
 
-	public CuentaBancaria getCuentaBancariaOrigen() {
-		return cuentaBancariaOrigen;
+	public CuentaBancaria getCuentaOrigen() {
+		return cuentaOrigen;
 	}
 
-	public void setCuentaBancariaOrigen(CuentaBancaria cuentaBancariaOrigen) {
-		this.cuentaBancariaOrigen = cuentaBancariaOrigen;
+	public void setCuentaOrigen(CuentaBancaria cuentaOrigen) {
+		this.cuentaOrigen = cuentaOrigen;
 	}
 
-	public CuentaBancaria getCuentaBancariaDestino() {
-		return cuentaBancariaDestino;
+	public CuentaBancaria getCuentaDestino() {
+		return cuentaDestino;
 	}
 
-	public void setCuentaBancariaDestino(CuentaBancaria cuentaBancariaDestino) {
-		this.cuentaBancariaDestino = cuentaBancariaDestino;
+	public void setCuentaDestino(CuentaBancaria cuentaDestino) {
+		this.cuentaDestino = cuentaDestino;
 	}
 
 	@Override
 	public String toString() {
-		return "Transferencia [id=" + id + ", fecha=" + fecha + ", monto=" + monto + ", cuentaBancariaOrigen="
-				+ cuentaBancariaOrigen + ", cuentaBancariaDestino=" + cuentaBancariaDestino + "]";
+		return "Transferencia [id=" + id + ", fecha=" + fecha + ", monto=" + monto + ", cuentaOrigen=" + cuentaOrigen
+				+ ", cuentaDestino=" + cuentaDestino + "]";
 	}
 	
-*/
+	
 }
