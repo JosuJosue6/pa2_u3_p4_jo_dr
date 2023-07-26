@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 
 @Repository
 @Transactional
@@ -19,9 +20,11 @@ public class TransferenciaRepositoryImpl implements ITransferenciaRepository {
 	private EntityManager entityManager;
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public void insertar(Transferencia transferencia) {
 		// TODO Auto-generated method stub
 		this.entityManager.persist(transferencia);
+		//throw new RuntimeException();
 	}
 
 	@Override

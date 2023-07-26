@@ -17,5 +17,5 @@ public interface ITransferenciaService {
 
 	public List<Transferencia> buscarTransferenciasPorNumeroCuenta(String numeroCuentaS);
 	
-	public void realizarTransferencia(String cuentaOrigen, String cuentaDestino, BigDecimal monto);
+	public void realizarTransferencia(String cuentaOrigen, String cuentaDestino, BigDecimal monto)throws Exception;
 }

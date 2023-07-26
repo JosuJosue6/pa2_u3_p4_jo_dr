@@ -12,6 +12,9 @@ import com.example.demo.repository.ITransferenciaRepository;
 import com.example.demo.repository.modelo.CuentaBancaria;
 import com.example.demo.repository.modelo.Transferencia;
 
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
+
 @Service
 public class TransferenciaServiceImpl implements ITransferenciaService {
 
@@ -52,23 +55,22 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 	}
 
 	@Override
-	public void realizarTransferencia(String cuentaOrigen, String cuentaDestino, BigDecimal monto) {
+	@Transactional(value = TxType.REQUIRES_NEW)
+	public void realizarTransferencia(String cuentaOrigen, String cuentaDestino, BigDecimal monto) throws Exception {
 		// TODO Auto-generated method stub
 		CuentaBancaria cOrigen = this.bancariaService.buscarPorNumero(cuentaOrigen);
 		CuentaBancaria cDestino = this.bancariaService.buscarPorNumero(cuentaDestino);
 		BigDecimal saldo = cOrigen.getSaldo();
+		
 		if (monto.compareTo(saldo) == 1) {
 			System.out
 					.println("Lo sentimos es imposible realizar la transferencia pues su saldo es insuficiente... :c");
+			throw new RuntimeException();
 		} else {
 			
-			Transferencia transferencia = new Transferencia();
-			transferencia.setCuentaOrigen(cOrigen);
-			transferencia.setCuentaDestino(cDestino);
-			transferencia.setFecha(LocalDate.now());
-			transferencia.setMonto(monto);
-			List<Transferencia>transferenciaL = new ArrayList<>();
-			transferenciaL.add(transferencia);
+		
+			//List<Transferencia>transferenciaL = new ArrayList<>();
+			//transferenciaL.add(transferencia);
 			
 			//Aumento a cuenta destino
 			BigDecimal saldoActual = cDestino.getSaldo();
@@ -79,8 +81,17 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 			//restar saldo
 			BigDecimal saldoActualO = cOrigen.getSaldo();
 			cOrigen.setSaldo(saldoActualO.subtract(monto));
-			cOrigen.setTransferencias(transferenciaL);
+			//cOrigen.setTransferencias(transferenciaL);
 			this.bancariaService.actualizar(cOrigen);
+			
+			Transferencia transferencia = new Transferencia();
+			transferencia.setCuentaOrigen(cOrigen);
+			transferencia.setCuentaDestino(cDestino);
+			transferencia.setFecha(LocalDate.now());
+			transferencia.setMonto(monto);//con null hacemos q nos de Error por practoca
+			this.transferenciaRepository.insertar(transferencia);
+			
+			//throw new Exception();
 		}
 	}
 
