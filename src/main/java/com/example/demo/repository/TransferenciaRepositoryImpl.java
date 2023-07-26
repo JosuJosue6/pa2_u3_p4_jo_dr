@@ -20,7 +20,7 @@ public class TransferenciaRepositoryImpl implements ITransferenciaRepository {
 	private EntityManager entityManager;
 
 	@Override
-	@Transactional(value = TxType.REQUIRED)
+	@Transactional(value = TxType.MANDATORY)
 	public void insertar(Transferencia transferencia) {
 		// TODO Auto-generated method stub
 		this.entityManager.persist(transferencia);
@@ -28,18 +28,21 @@ public class TransferenciaRepositoryImpl implements ITransferenciaRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.MANDATORY)
 	public void actualizar(Transferencia transferencia) {
 		// TODO Auto-generated method stub
 		this.entityManager.merge(transferencia);
 	}
 
 	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED)
 	public Transferencia seleccionarPorID(Integer id) {
 		// TODO Auto-generated method stub
 		return this.entityManager.find(Transferencia.class, id);
 	}
 
 	@Override
+	@Transactional(value = TxType.MANDATORY)
 	public void eliminarPorID(Integer id) {
 		// TODO Auto-generated method stub
 		Transferencia transferencia = this.seleccionarPorID(id);
@@ -47,6 +50,7 @@ public class TransferenciaRepositoryImpl implements ITransferenciaRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED)
 	public List<Transferencia> seleccionarTransferenciasPorNumeroCuenta(String numeroCuenta) {
 		// TODO Auto-generated method stub
 		TypedQuery<Transferencia> myQuery = this.entityManager
