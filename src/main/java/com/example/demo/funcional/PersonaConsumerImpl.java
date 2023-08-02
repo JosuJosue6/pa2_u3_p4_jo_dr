@@ -9,7 +9,7 @@ public class PersonaConsumerImpl implements IPersonaConsumer<String> {
 
 	@Override
 	public void accept(String arg) {
-		// TODO Auto-generated method stub
+		
 		LOG.info(arg);
 	}
 	
