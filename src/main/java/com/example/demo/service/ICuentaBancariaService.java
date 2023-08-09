@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.example.demo.repository.modelo.CuentaBancaria;
 
 public interface ICuentaBancariaService {
@@ -14,6 +16,8 @@ public interface ICuentaBancariaService {
 	
 	public void borrarPorNumero(String numero);
 	
+	public void agregarAsincrono(CuentaBancaria bancaria);
 	
+	public CompletableFuture<String> agregarAsincrono2(CuentaBancaria bancaria);
 	
 }
